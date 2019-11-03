@@ -19,7 +19,7 @@ void Tree::addRoot(string val)
 
 DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, DecisionTreeNode* &father)
 {
-	//if (!node || (node->_isLeaf && node->_value != val)) //no node or this is not leaf and this is not the value
+	//if (!node || (node->_isLeaf && node->_value != val)) //no node or this is not leaf and this is not the valuegg
 	//	return nullptr;
 	if (node->_value == val)
 		return node;
