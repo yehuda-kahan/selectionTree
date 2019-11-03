@@ -8,37 +8,39 @@ using namespace std;
 
 class DecisionTreeNode;
 
+class ValidAnswer
+{
+public:
+	string _ans;
+	DecisionTreeNode* _son;
+
+};
+
+class DecisionTreeNode
+{
+public:
+	string _value;
+	bool _isLeaf;
+	list<ValidAnswer*> _answersList;
+
+	DecisionTreeNode() : _isLeaf(true) {};
+};
 
 class Tree
 {
 public:
 
-	class ValidAnswer
-	{
-	public:
-		string _ans;
-		DecisionTreeNode* _son;
-
-	};
-
-	class DecisionTreeNode
-	{
-	public:
-		string _value;
-		bool _isLeaf;
-		list<ValidAnswer*> _answersList;
-
-		DecisionTreeNode() : _isLeaf(true) {};
-	};
-
 	DecisionTreeNode* _root;
 
 	Tree() : _root(nullptr) {};
-	~Tree() { deleteTree(_root); };
+	~Tree() { clear(_root); };
 	
-	void createTree(string val);
-	void deleteTree(DecisionTreeNode* root);
-	DecisionTreeNode* findQestion(string val);
+	void addRoot(string val);
+	void clear() { clear(_root); }
+	void clear(DecisionTreeNode* root) const;
+	
+	bool addSon(string father, string val, string sol) const;
+	DecisionTreeNode* findQestion(string val, DecisionTreeNode* root, DecisionTreeNode*& father) const;
 };
 
 
