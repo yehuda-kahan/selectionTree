@@ -39,8 +39,8 @@ public:
 	void clear() { clear(_root); }
 	void clear(DecisionTreeNode* root) const;
 	
-	bool addSon(string father, string val, string sol);
-	DecisionTreeNode* findQestion(string val, DecisionTreeNode* root, DecisionTreeNode*& father);
+	bool addSon(string father, string val, string sol) const;
+	DecisionTreeNode* findQestion(string val, DecisionTreeNode* root, DecisionTreeNode*& father) const;
 };
 
 

@@ -17,9 +17,9 @@ void Tree::addRoot(string val)
 	_root->_value = val;
 }
 
-DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, DecisionTreeNode* &father)
+DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, DecisionTreeNode* &father) const
 {
-	//if (!node || (node->_isLeaf && node->_value != val)) //no node or this is not leaf and this is not the valuegg
+	//if (!node || (node->_isLeaf && node->_value != val)) //no node or this is not leaf and this is not the value
 	//	return nullptr;
 	if (node->_value == val)
 		return node;
@@ -27,7 +27,7 @@ DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, Decision
 	DecisionTreeNode* theReturn = nullptr;
 	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
 	{
-		temp = findQestion(val, (DecisionTreeNode*)(*it)->_son, father);
+		temp = findQestion(val, (*it)->_son, father);
 		if (temp)
 		{
 			theReturn = temp;
@@ -37,8 +37,8 @@ DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, Decision
 	return theReturn;
 }
 
-bool Tree::addSon(string father, string val, string sol)
+bool Tree::addSon(string father, string val, string sol) const
 {
-	DecisionTreeNode* theFather;
+	DecisionTreeNode* theFather = nullptr;
 	DecisionTreeNode* node = findQestion(father, _root, theFather);
 }
