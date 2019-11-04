@@ -32,7 +32,7 @@ class Tree
 public:
 	DecisionTreeNode* _root;
 	// Dtor/Ctor
-	Tree() : _root(nullptr) {};
+	Tree() : _root(NULL) {};
 	~Tree() {if (_root != NULL) clear(_root); };
 
 	// methods

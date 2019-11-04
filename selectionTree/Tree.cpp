@@ -10,7 +10,8 @@ void Tree::clear(DecisionTreeNode* node) const
 		delete node; return;
 	}
 	// else : he has sans
-	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
+	list<ValidAnswer*>::iterator it;
+	for (it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
 	{
 		if ((*it)->_son == NULL) continue;
 		clear((*it)->_son);
@@ -37,7 +38,8 @@ DecisionTreeNode* Tree::findQestion(string val, DecisionTreeNode* node, Decision
 	DecisionTreeNode* temp = NULL;
 	DecisionTreeNode* theReturn = NULL;
 
-	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
+	list<ValidAnswer*>::iterator it;
+	for (it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
 	{
 		temp = findQestion(val, (*it)->_son, father);
 		if (temp)
@@ -68,15 +70,16 @@ bool Tree::addSon(string fQuestion, string answer, string sol) const
 // print all tree
 void Tree::print(DecisionTreeNode* node, int level) const
 {
-	for (int i = 0; i < level; ++i)
+	for (int i = 0; i < level; ++i) // that for print any level with his special line
 		cout << " ";
 	cout << node->_value << endl;
-	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
+	list<ValidAnswer*>::iterator it;
+	for (it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
 	{
 		for (int i = 0; i < level; ++i)
 			cout << " ";
-		cout <<": " <<(*it)->_ans << endl;
-		print((*it)->_son, level+1);
+		cout << ": " << (*it)->_ans << endl;
+		print((*it)->_son, level + 1);
 	}
 }
 
@@ -91,10 +94,11 @@ void Tree::searchAndPrint(string val) const
 		if (father == NULL)
 			break;
 		cout << " => ";
-		// check in all the "suns" of the father, who is the current - and print the answer which bringe to him
-		for (auto it = father->_answersList.begin(); it != father->_answersList.end(); ++it)
-			if ((*it)->_son == current)
-				cout << (*it)->_ans << " => ";
+		//list<ValidAnswer*>::iterator it;
+		//// check in all the "suns" of the father, who is the current - and print the answer which bringe to him
+		//for (it = father->_answersList.begin(); it != father->_answersList.end(); ++it)
+		//	if ((*it)->_son == current)
+		//		cout << (*it)->_ans << " => ";
 		current = findQestion(father->_value, _root, father);
 	}
 }
@@ -109,8 +113,8 @@ void Tree::deleteSubTree(string val) const
 	{
 		cout << "ERROR : There is no question/solution - " << val; return;
 	}
-
-	for (auto it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
+	list<ValidAnswer*>::iterator it;
+	for (it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
 	{
 		clear((*it)->_son);
 		delete* it;
@@ -128,12 +132,12 @@ void Tree::process() const
 	}
 	DecisionTreeNode* current = _root;
 	cout << current->_value << endl;
-
+	list<ValidAnswer*>::iterator it;
 	while (current->_isLeaf == false)
 	{
 		string ans;
 		cin >> ans;
-		for (auto it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
+		for (it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
 			if ((*it)->_ans == ans)
 			{
 				current = (*it)->_son;

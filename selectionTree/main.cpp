@@ -1,7 +1,15 @@
+/*
+File: main.cpp
+Description: This is the main file of the program.
+Course: 150090 Data structure 2,
+Run exercise 1
+Author:  Yehuda kahan ID:204284376 == simcha shtroch ID:308375823
+*/
+
 #include <iostream>
 #include <list>
 #include <string>
-#include "tree.h"
+#include"Tree.h"
 
 using namespace std;
 int main()
