@@ -1,14 +1,22 @@
 #include "Tree.h"
 
 // delete the tree from the given node
-void Tree::clear(DecisionTreeNode* root) const
+void Tree::clear(DecisionTreeNode* node) const
 {
-	if (root == NULL) return;
-	if (root->_isLeaf == true) delete root;
-	//list<ValidAnswer*>::iterator it;
-	for (auto it = root->_answersList.begin(); it != root->_answersList.end(); ++it)
-		clear((DecisionTreeNode*)(*it)->_son);
-	delete root;
+	// Note : The test if is this NULL we did in the Dtor and in deleteSubTree function, only them use it .
+
+	if (node->_isLeaf == true)
+	{
+		delete node; return;
+	}
+	// else : he has sans
+	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
+	{
+		if ((*it)->_son == NULL) continue;
+		clear((*it)->_son);
+		delete* it;         // delete the ValidAnswer pointer in the list
+	}
+	delete node; // after delete all his sans, delete the node
 }
 
 // create the first node in the tree (with question)
@@ -58,16 +66,21 @@ bool Tree::addSon(string fQuestion, string answer, string sol) const
 }
 
 // print all tree
-void Tree::print(DecisionTreeNode* node) const
+void Tree::print(DecisionTreeNode* node, int level) const
 {
-	cout << node->_value << endl << " ";
+	for (int i = 0; i < level; ++i)
+		cout << " ";
+	cout << node->_value << endl;
 	for (auto it = node->_answersList.begin(); it != node->_answersList.end(); ++it)
 	{
-		cout << (*it)->_ans << endl;
-		print((*it)->_son);
+		for (int i = 0; i < level; ++i)
+			cout << " ";
+		cout <<": " <<(*it)->_ans << endl;
+		print((*it)->_son, level+1);
 	}
 }
 
+// print the path from the given question/solution until the root
 void Tree::searchAndPrint(string val) const
 {
 	DecisionTreeNode* father = NULL;
@@ -86,24 +99,46 @@ void Tree::searchAndPrint(string val) const
 	}
 }
 
+// delete the sub tree of the given question/solution
 void Tree::deleteSubTree(string val) const
 {
 	DecisionTreeNode* father = NULL;
 	DecisionTreeNode* current = findQestion(val, _root, father);
-	
-	if (current == NULL)
-		cout << "ERROR : There is no question/solution - " << val; return;
 
-	// check if the father is exist node we want to delete his ValidAnswer who lead to this question/sol
-	if (father != NULL) 
-		for (auto it = father->_answersList.begin(); it != father->_answersList.end(); ++it)
-			if ((*it)->_son == current)
+	if (current == NULL)
+	{
+		cout << "ERROR : There is no question/solution - " << val; return;
+	}
+
+	for (auto it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
+	{
+		clear((*it)->_son);
+		delete* it;
+	}
+	current->_answersList.clear();   // clear the list of the current node
+	current->_isLeaf = true;         // make him a leaf
+}
+
+// the process on the tree for the costumer
+void Tree::process() const
+{
+	if (_root == NULL)
+	{
+		cout << "ERROR : there is no tree to process on it" << endl; return;
+	}
+	DecisionTreeNode* current = _root;
+	cout << current->_value << endl;
+
+	while (current->_isLeaf == false)
+	{
+		string ans;
+		cin >> ans;
+		for (auto it = current->_answersList.begin(); it != current->_answersList.end(); ++it)
+			if ((*it)->_ans == ans)
 			{
-				(*it)->_son = NULL;
-				delete * it;
+				current = (*it)->_son;
+				break;
 			}
-	// clear the sub tree
-	clear(current);
-	// updating the father to be a leaf (after the delete sub tree)
-	father->_isLeaf = true;
+		cout << current->_value;
+	}
 }

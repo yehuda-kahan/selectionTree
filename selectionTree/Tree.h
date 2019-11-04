@@ -33,18 +33,20 @@ public:
 	DecisionTreeNode* _root;
 	// Dtor/Ctor
 	Tree() : _root(nullptr) {};
-	~Tree() { clear(_root); };
+	~Tree() {if (_root != NULL) clear(_root); };
 
 	// methods
 	void addRoot(string val);
-	void clear() { clear(_root); }
+	
+	void clear() { if (_root != NULL) clear(_root); }
 	void clear(DecisionTreeNode* root) const;
 	bool addSon(string fQuestion, string answer, string sol) const;
 	DecisionTreeNode* findQestion(string val, DecisionTreeNode* root, DecisionTreeNode*& father) const;
-	void print(DecisionTreeNode* node)const;
-	void printAllTree() { if(_root != nullptr) print(_root); }
+	void print(DecisionTreeNode* node, int level)const;
+	void printAllTree() { if(_root != NULL) print(_root, 0); }
 	void searchAndPrint(string val) const;
 	void deleteSubTree(string val) const;
+	void process() const;
 };
 
 

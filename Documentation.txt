@@ -1,0 +1,68 @@
+
+DECISION TREE
+Choose one of the following:
+n: New decision tree
+s: Add a new option for a question
+d: Delete a subtree
+p: Print all tree
+w: Print the path to a decision or a question
+r: Run a process of questions
+e: exit:
+n
+enter the main question (with no space) is-cloudy?
+s
+enter the question (with no space) is-cloudy?
+enter the new ValidAnswer (with no space) no
+enter the new solution(possible a new question, with no space) no-rain
+success
+s
+enter the question (with no space) is-cloudy?
+enter the new ValidAnswer (with no space) partly
+enter the new solution(possible a new question, with no space) prepare-for-rain
+success
+s
+enter the question (with no space) is-cloudy?
+enter the new ValidAnswer (with no space) yes
+enter the new solution(possible a new question, with no space) what-temperature?
+success
+s
+enter the question (with no space) what-temperature?
+enter the new ValidAnswer (with no space) less-zero
+enter the new solution(possible a new question, with no space) snow
+success
+s
+enter the question (with no space) what-temperature?
+enter the new ValidAnswer (with no space) warm
+enter the new solution(possible a new question, with no space) no-rain-is-exepted
+success
+p
+is-cloudy?
+: no
+ no-rain
+: partly
+ prepare-for-rain
+: yes
+ what-temperature?
+ : less-zero
+  snow
+ : warm
+  no-rain-is-exepted
+d
+enter value of subtree to delete (with no space) what-temperature?
+p
+is-cloudy?
+: no
+ no-rain
+: partly
+ prepare-for-rain
+: yes
+ what-temperature?
+r
+is-cloudy?
+partly
+prepare-for-rain
+
+e
+bye
+C:\Users\yehud\OneDrive\Desktop\לימודים\מבנת ב\תרגילי ריצה\selectionTree\Debug\selectionTree.exe (process 17020) exited with code 0.
+Press any key to close this window . . .
