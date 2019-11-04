@@ -31,7 +31,7 @@ int main()
 		case 'd':cout << "enter value of subtree to delete (with no space) "; cin >> val; t.deleteSubTree(val);  break;
 		case 'p':t.printAllTree();  break;
 		case 'w':cout << "enter a value (with no space) "; cin >> val; t.searchAndPrint(val); cout << endl;  break;
-		case 'r':t.process(); cout << endl;  break;
+	//	case 'r':t.process(); cout << endl;  break;
 		case 'e':cout << "bye "; break;
 		default: cout << "ERROR\n";  break;
 		}

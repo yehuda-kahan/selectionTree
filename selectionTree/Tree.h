@@ -43,6 +43,8 @@ public:
 	DecisionTreeNode* findQestion(string val, DecisionTreeNode* root, DecisionTreeNode*& father) const;
 	void print(DecisionTreeNode* node)const;
 	void printAllTree() { if(_root != nullptr) print(_root); }
+	void searchAndPrint(string val) const;
+	void deleteSubTree(string val) const;
 };
 
 
